@@ -28,8 +28,15 @@ public class Animal {
         return id;
     }
 
+    //Get rangerId
+
+    public int getRangerId() {
+        return rangerId;
+    }
+
 
     //override
+
 
     @Override
     public boolean equals(Object o) {
@@ -38,20 +45,26 @@ public class Animal {
 
         Animal animal = (Animal) o;
 
+        if (id != animal.id) return false;
+        if (rangerId != animal.rangerId) return false;
         return name != null ? name.equals(animal.name) : animal.name == null;
     }
 
     @Override
     public int hashCode() {
-        return name != null ? name.hashCode() : 0;
+        int result = name != null ? name.hashCode() : 0;
+        result = 31 * result + id;
+        result = 31 * result + rangerId;
+        return result;
     }
 
     //save animal to database
     public void save(){
         try(Connection con = DB.sql2o.open()){
-            String sql = "INSERT INTO animals (name) VALUES (:name)";
+            String sql = "INSERT INTO animals (name, rangerId) VALUES (:name, :rangerId)";
             this.id = (int) con.createQuery(sql, true)
-                    .addParameter("name", name)
+                    .addParameter("name", this.name)
+                    .addParameter("rangerId", this.rangerId)
                     .executeUpdate()
                     .getKey();
 
