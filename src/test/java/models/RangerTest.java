@@ -63,6 +63,15 @@ public class RangerTest {
         assertEquals(ranger.getId(), savedRanger.getId());
     }
 
+    @Test
+    public void ranger_returnsRangerWithSpecificId_secondRanger(){
+        Ranger firstRanger = setUpAssistant();
+        firstRanger.save();
+        Ranger secondranger = new Ranger("Mike", 8821);
+        secondranger.save();
+        assertEquals(Ranger.find(secondranger.getId()), secondranger);
+    }
+
     @After
     public void tearDown() throws Exception {
     }

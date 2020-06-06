@@ -63,4 +63,13 @@ public class Ranger {
                     .executeAndFetch(Ranger.class);
         }
     }
+
+    public static Ranger find(int id){
+        try(Connection con = DB.sql2o.open()){
+            Ranger ranger = con.createQuery("SELECT * FROM rangers WHERE id=:id")
+                    .addParameter("id", id)
+                    .executeAndFetchFirst(Ranger.class);
+            return ranger;
+        }
+    }
 }
