@@ -31,6 +31,13 @@ public class AnimalTest {
         assertTrue(firstAnimal.equals(secondAnimal));
     }
 
+    @Test
+    public void animal_savesAnimalToDatabase(){
+        Animal animal = setUpAssistant();
+        animal.save();
+        assertTrue(Animal.all().get(0).equals(animal));
+    }
+
     @After
     public void tearDown() throws Exception {
     }
