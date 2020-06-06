@@ -65,13 +65,13 @@ public class AnimalTest {
         assertEquals(Animal.find(secondAnimal.getId()), secondAnimal);
     }
 
-    @Test
-    public void animals_savesRangerIdToDatabase(){
-        Ranger ranger = new Ranger("Mike", 8821);
-        ranger.save();
-        Animal animal = setUpAssistant();
-        assertEquals(animal.getRangerId(), ranger.getId());
-    }
+//    @Test
+//    public void animals_savesRangerIdToDatabase(){
+//        Ranger ranger = new Ranger("Mike", 8821);
+//        ranger.save();
+//        Animal animal = setUpAssistant();
+//        assertEquals(animal.getRangerId(), ranger.getId());
+//    }
 
     @After
     public void tearDown() throws Exception {

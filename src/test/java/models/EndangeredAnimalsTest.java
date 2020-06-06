@@ -64,14 +64,20 @@ public class EndangeredAnimalsTest {
         Ranger ranger = new Ranger("Mike", 8821);
         ranger.save();
         EndangeredAnimals endangeredAnimals = firstSetUpAssistant();
-
+        endangeredAnimals.save();
         assertEquals(endangeredAnimals.getRangerId(), ranger.getId());
     }
 
+//    @Test
+//    public void EndangeredAnimals_InstantiatesWithHealth(){
+//        EndangeredAnimals endangeredAnimals = firstSetUpAssistant();
+//        assertEquals(endangeredAnimals.getHealth(), (EndangeredAnimals.healthy));
+//    }
+
     @Test
-    public void EndangeredAnimals_InstantiatesWithHealth(){
-        EndangeredAnimals endangeredAnimals = firstSetUpAssistant();
-        assertEquals(endangeredAnimals.getmHealthy(), (EndangeredAnimals.healthy));
+    public void enAnimal_InstantiatesWithNameCorrectly_String(){
+        EndangeredAnimals endangeredAnimal = firstSetUpAssistant();
+        assertEquals("Rhino",endangeredAnimal.getName());
     }
 
 
@@ -82,10 +88,10 @@ public class EndangeredAnimalsTest {
 
     //helper method
     public EndangeredAnimals firstSetUpAssistant(){
-        return new EndangeredAnimals("Rhino", 1);
+        return new EndangeredAnimals("Rhino", 36, EndangeredAnimals.healthy, EndangeredAnimals.adult);
     }
 
     public EndangeredAnimals secondSetUpAssistant(){
-        return new EndangeredAnimals("Elephant", 1);
+        return new EndangeredAnimals("Elephant", 1, EndangeredAnimals.okay, EndangeredAnimals.young);
     }
 }

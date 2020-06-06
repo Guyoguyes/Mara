@@ -78,11 +78,10 @@ public class RangerTest {
     public void getAnimals_retrievesAllAnimalsFromDatabase_AnimalList(){
         Ranger ranger = setUpAssistant();
         ranger.save();
-        EndangeredAnimals endangeredAnimals = new EndangeredAnimals("zebra", ranger.getId());
+        EndangeredAnimals endangeredAnimals = new EndangeredAnimals("zebra", ranger.getId(), EndangeredAnimals.okay, EndangeredAnimals.young);
         endangeredAnimals.save();
-        EndangeredAnimals endangeredAnimals1 = new EndangeredAnimals("Rhino", ranger.getId());
-        endangeredAnimals1.save();
-        Object[] animals = new Object[] {endangeredAnimals, endangeredAnimals1};
+        Animal animal = new Animal("Lion", 1);
+        Object[] animals = new Object[] {endangeredAnimals, animal};
         assertTrue(ranger.getAnimals().containsAll(Arrays.asList(animals)));
     }
 

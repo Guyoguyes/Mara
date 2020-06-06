@@ -75,7 +75,7 @@ public  class Animal {
     }
 
     public static List<Animal> all(){
-        String sql = "SELECT * FROM animals WHERE type='enAnimal'";
+        String sql = "SELECT * FROM animals";
         try(Connection con = DB.sql2o.open()){
             return con.createQuery(sql)
                     .throwOnMappingFailure(false)
@@ -89,7 +89,7 @@ public  class Animal {
             Animal animal = con.createQuery(sql)
                     .addParameter("id", id)
                     .throwOnMappingFailure(false)
-                    .executeAndFetchFirst(EndangeredAnimals.class);
+                    .executeAndFetchFirst(Animal.class);
             return animal;
         }
 

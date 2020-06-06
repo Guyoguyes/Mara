@@ -8,13 +8,8 @@ import java.util.List;
 
 public class EndangeredAnimals extends Animal{
 
-    private String mHealthy;
-    private String mIll;
-    private String mOkay;
-
-    private String mNewBorn;
-    private String mYoung;
-    private String mAdult;
+    private String health;
+    private String age;
 
     public static final String healthy = "healthy";
     public static final String ill = "ill";
@@ -28,31 +23,29 @@ public class EndangeredAnimals extends Animal{
     public static final String DATABASE_TYPE = "enAnimal";
 
 
-    public EndangeredAnimals(String name, int rangerId) {
+    public EndangeredAnimals(String name, int rangerId, String health, String age) {
         super(name, rangerId);
         this.name = name;
         this.rangerId = rangerId;
-        mHealthy = healthy;
-        mIll = ill;
-        mOkay = okay;
-        mNewBorn = newBorn;
-        mYoung = young;
-        mAdult = adult;
         type = DATABASE_TYPE;
     }
 
-    public String getmHealthy() {
-        return mHealthy;
+    public String getHealth() {
+        return health;
     }
 
-    public static List<EndangeredAnimals> all(){
-        String sql = "SELECT * FROM animals WHERE type='enAnimal'";
-        try(Connection con = DB.sql2o.open()){
-            return con.createQuery(sql)
-                    .throwOnMappingFailure(false)
-                    .executeAndFetch(EndangeredAnimals.class);
-        }
+    public String getAge() {
+        return age;
     }
+
+    //    public static List<EndangeredAnimals> all(){
+//        String sql = "SELECT * FROM animals WHERE type='enAnimal'";
+//        try(Connection con = DB.sql2o.open()){
+//            return con.createQuery(sql)
+//                    .throwOnMappingFailure(false)
+//                    .executeAndFetch(EndangeredAnimals.class);
+//        }
+//    }
 
     public static  EndangeredAnimals find(int id){
         try(Connection con = DB.sql2o.open()){
