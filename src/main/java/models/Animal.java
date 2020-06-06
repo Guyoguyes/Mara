@@ -8,9 +8,12 @@ import java.util.List;
 public class Animal {
     private String name;
     private int id;
+    private int rangerId;
 
-    public Animal(String name){
+    public Animal(String name, int rangerId){
+
         this.name = name;
+        this.rangerId = rangerId;
     }
 
     //getName

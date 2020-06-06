@@ -29,6 +29,12 @@ public class AnimalTest {
     }
 
     @Test
+    public void animal_InstantiatesWithRangerId_true(){
+        Animal animal = setUpAssistant();
+        assertEquals(true, animal instanceof Animal);
+    }
+
+    @Test
     public void animal_returnsTrueIfNamesAreEqual(){
         Animal firstAnimal = setUpAssistant();
         Animal secondAnimal = setUpAssistant();
@@ -54,7 +60,7 @@ public class AnimalTest {
     public void animals_returnsAnimalWithSpecificId_secondAnimal(){
         Animal firstAnimal = setUpAssistant();
         firstAnimal.save();
-        Animal secondAnimal = new Animal("Zebra");
+        Animal secondAnimal = new Animal("Zebra", 1);
         secondAnimal.save();
         assertEquals(Animal.find(secondAnimal.getId()), secondAnimal);
     }
@@ -65,6 +71,6 @@ public class AnimalTest {
 
     //helper method
     public Animal setUpAssistant(){
-        return new Animal("Lion");
+        return new Animal("Lion", 1);
     }
 }
