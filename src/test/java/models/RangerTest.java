@@ -13,9 +13,35 @@ public class RangerTest {
     }
 
     @Test
-    public void ranger_InstantiatesWithNameAndBudgeNo_true(){
+    public void ranger_InstantiatesCorrectly_true(){
         Ranger ranger = setUpAssistant();
         assertEquals(true, ranger instanceof Ranger);
+    }
+
+    @Test
+    public void ranger_InstantiatesWithNameCorrectly_true(){
+        Ranger ranger = setUpAssistant();
+        assertEquals("Alex", ranger.getName());
+    }
+
+    @Test
+    public void ranger_InstantiatesWithBudgeNoCorrectly_true(){
+        Ranger ranger = setUpAssistant();
+        assertEquals(3310, ranger.getBudgeNo());
+    }
+
+    @Test
+    public void ranger_returnsTrueIfNamesAreEqual(){
+        Ranger firstRanger = setUpAssistant();
+        Ranger secondRanger = setUpAssistant();
+        assertTrue(firstRanger.equals(secondRanger));
+    }
+
+    @Test
+    public void ranger_returnsTrueIfBudgeNosAreEqual(){
+        Ranger firstRanger = setUpAssistant();
+        Ranger secondRanger = setUpAssistant();
+        assertTrue(firstRanger.equals(secondRanger));
     }
 
     @After
