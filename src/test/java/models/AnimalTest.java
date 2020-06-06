@@ -4,9 +4,13 @@ import junit.framework.TestCase;
 import org.junit.After;
 import static org.junit.Assert.*;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 
 public class AnimalTest {
+
+    @Rule
+    public  DatabaseRule databaseRule = new DatabaseRule();
 
     @Before
     public void setUp() throws Exception {
@@ -36,6 +40,23 @@ public class AnimalTest {
         Animal animal = setUpAssistant();
         animal.save();
         assertTrue(Animal.all().get(0).equals(animal));
+    }
+
+    @Test
+    public void animal_savesAssignsObjectId(){
+        Animal animal = setUpAssistant();
+        animal.save();
+        Animal savedAnimal = Animal.all().get(0);
+        assertEquals(animal.getId(), savedAnimal.getId());
+    }
+
+    @Test
+    public void animals_returnsAnimalWithSpecificId_secondAnimal(){
+        Animal firstAnimal = setUpAssistant();
+        firstAnimal.save();
+        Animal secondAnimal = new Animal("Zebra");
+        secondAnimal.save();
+        assertEquals(Animal.find(secondAnimal.getId()), secondAnimal);
     }
 
     @After
