@@ -68,6 +68,12 @@ public class EndangeredAnimalsTest {
         assertEquals(endangeredAnimals.getRangerId(), ranger.getId());
     }
 
+    @Test
+    public void EndangeredAnimals_InstantiatesWithHealth(){
+        EndangeredAnimals endangeredAnimals = firstSetUpAssistant();
+        assertEquals(endangeredAnimals.getmHealthy(), (EndangeredAnimals.healthy));
+    }
+
 
 
     @After

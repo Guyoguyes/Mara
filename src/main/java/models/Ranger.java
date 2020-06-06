@@ -3,6 +3,7 @@ package models;
 import DB.DB;
 import org.sql2o.Connection;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Ranger {
@@ -73,12 +74,23 @@ public class Ranger {
         }
     }
 
-    public  List<Animal> getAnimals(){
-        try(Connection con = DB.sql2o.open()) {
-            String sql = "SELECT * FROM animals WHERE rangerId=:id";
-            return con.createQuery(sql)
-                    .addParameter("id", this.id)
-                    .executeAndFetch(Animal.class);
-        }
+    public  List<Object> getAnimals(){
+       List<Object> allAnimals = new ArrayList<Object>();
+       try (Connection con = DB.sql2o.open()){
+           String sql = "SELECT * FROM animals WHERE type='enAnimal'";
+           List<EndangeredAnimals> endangeredAnimals = con.createQuery(sql)
+                   .addParameter("id", this.id)
+                   .throwOnMappingFailure(false)
+                   .executeAndFetch(EndangeredAnimals.class);
+           allAnimals.addAll(endangeredAnimals);
+
+           String sql1 = "SELECT * FROM animals";
+           List<Animal> animals = con.createQuery(sql1)
+                   .addParameter("id", this.id)
+                   .throwOnMappingFailure(false)
+                   .executeAndFetch(Animal.class);
+           allAnimals.addAll(animals);
+       }
+       return allAnimals;
     }
 }

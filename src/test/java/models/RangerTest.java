@@ -74,17 +74,17 @@ public class RangerTest {
         assertEquals(Ranger.find(secondranger.getId()), secondranger);
     }
 
-//    @Test
-//    public void ranger_getMonstersWithRangerId(){
-//        Ranger ranger = setUpAssistant();
-//        ranger.save();
-//        Animal firstAnimal = new Animal("Lion", ranger.getId());
-//        firstAnimal.save();
-//        Animal secondAnimal= new Animal("Zebra", ranger.getId());
-//        secondAnimal.save();
-//        Animal[] animals = new Animal[] {firstAnimal, secondAnimal};
-//        assertTrue(ranger.getAnimals().containsAll(Arrays.asList(animals)));
-//    }
+    @Test
+    public void getAnimals_retrievesAllAnimalsFromDatabase_AnimalList(){
+        Ranger ranger = setUpAssistant();
+        ranger.save();
+        EndangeredAnimals endangeredAnimals = new EndangeredAnimals("zebra", ranger.getId());
+        endangeredAnimals.save();
+        EndangeredAnimals endangeredAnimals1 = new EndangeredAnimals("Rhino", ranger.getId());
+        endangeredAnimals1.save();
+        Object[] animals = new Object[] {endangeredAnimals, endangeredAnimals1};
+        assertTrue(ranger.getAnimals().containsAll(Arrays.asList(animals)));
+    }
 
     @After
     public void tearDown() throws Exception {

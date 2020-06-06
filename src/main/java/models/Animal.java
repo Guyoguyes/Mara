@@ -5,18 +5,18 @@ import org.sql2o.Connection;
 
 import java.util.List;
 
-public abstract class Animal {
+public  class Animal {
     public String name;
     public int id;
     public int rangerId;
+    public String type;
 
 
+    public Animal(String name, int rangerId){
 
-//    public Animal(String name, int rangerId){
-//
-//        this.name = name;
-//        this.rangerId = rangerId;
-//    }
+        this.name = name;
+        this.rangerId = rangerId;
+    }
 
     //getName
 
@@ -63,23 +63,36 @@ public abstract class Animal {
     //save animal to database
     public void save(){
         try(Connection con = DB.sql2o.open()){
-            String sql = "INSERT INTO animals (name, rangerId) VALUES (:name, :rangerId)";
+            String sql = "INSERT INTO animals (name, rangerId, type) VALUES (:name, :rangerId, :type)";
             this.id = (int) con.createQuery(sql, true)
                     .addParameter("name", this.name)
                     .addParameter("rangerId", this.rangerId)
+                    .addParameter("type", this.type)
                     .executeUpdate()
                     .getKey();
 
         }
     }
 
-
-
     public static List<Animal> all(){
-        String sql = "SELECT * FROM animals";
+        String sql = "SELECT * FROM animals WHERE type='enAnimal'";
         try(Connection con = DB.sql2o.open()){
-          return con.createQuery(sql)
-                  .executeAndFetch(Animal.class);
+            return con.createQuery(sql)
+                    .throwOnMappingFailure(false)
+                    .executeAndFetch(Animal.class);
         }
     }
+
+    public static  Animal find(int id) {
+        try (Connection con = DB.sql2o.open()) {
+            String sql = "SELECT * FROM animals WHERE id=:id";
+            Animal animal = con.createQuery(sql)
+                    .addParameter("id", id)
+                    .throwOnMappingFailure(false)
+                    .executeAndFetchFirst(EndangeredAnimals.class);
+            return animal;
+        }
+
+    }
+
 }
