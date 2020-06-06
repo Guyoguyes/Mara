@@ -5,6 +5,8 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
+import java.util.Arrays;
+
 import static org.junit.Assert.*;
 
 public class RangerTest {
@@ -71,6 +73,18 @@ public class RangerTest {
         secondranger.save();
         assertEquals(Ranger.find(secondranger.getId()), secondranger);
     }
+
+//    @Test
+//    public void ranger_getMonstersWithRangerId(){
+//        Ranger ranger = setUpAssistant();
+//        ranger.save();
+//        Animal firstAnimal = new Animal("Lion", ranger.getId());
+//        firstAnimal.save();
+//        Animal secondAnimal= new Animal("Zebra", ranger.getId());
+//        secondAnimal.save();
+//        Animal[] animals = new Animal[] {firstAnimal, secondAnimal};
+//        assertTrue(ranger.getAnimals().containsAll(Arrays.asList(animals)));
+//    }
 
     @After
     public void tearDown() throws Exception {

@@ -72,4 +72,13 @@ public class Ranger {
             return ranger;
         }
     }
+
+    public  List<Animal> getAnimals(){
+        try(Connection con = DB.sql2o.open()) {
+            String sql = "SELECT * FROM animals WHERE rangerId=:id";
+            return con.createQuery(sql)
+                    .addParameter("id", this.id)
+                    .executeAndFetch(Animal.class);
+        }
+    }
 }
