@@ -24,6 +24,13 @@ public class AnimalTest {
         assertEquals("Lion", animal.getName());
     }
 
+    @Test
+    public void animal_returnsTrueIfNamesAreEqual(){
+        Animal firstAnimal = setUpAssistant();
+        Animal secondAnimal = setUpAssistant();
+        assertTrue(firstAnimal.equals(secondAnimal));
+    }
+
     @After
     public void tearDown() throws Exception {
     }
