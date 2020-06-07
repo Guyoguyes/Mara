@@ -77,7 +77,7 @@ public class Ranger {
     public  List<Object> getAnimals(){
        List<Object> allAnimals = new ArrayList<Object>();
        try (Connection con = DB.sql2o.open()){
-           String sql = "SELECT * FROM animals WHERE type='enAnimal'";
+           String sql = "SELECT * FROM animals WHERE ";
            List<EndangeredAnimals> endangeredAnimals = con.createQuery(sql)
                    .addParameter("id", this.id)
                    .throwOnMappingFailure(false)

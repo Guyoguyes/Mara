@@ -3,6 +3,7 @@ package models;
 import DB.DB;
 import org.sql2o.Connection;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 public class Sighting {
@@ -10,6 +11,8 @@ public class Sighting {
     private int animalId;
     private int rangerId;
     private int id;
+
+    private Timestamp timeReported;
 
     public Sighting(String sight, int animalId, int rangerId){
         this.sight = sight;
@@ -31,6 +34,10 @@ public class Sighting {
 
     public int getId() {
         return id;
+    }
+
+    public Timestamp getTimeReported() {
+        return timeReported;
     }
 
     @Override
@@ -57,7 +64,7 @@ public class Sighting {
 
     //saved to DB
     public void save(){
-        String sql = "INSERT INTO sightings (sight, animalId, rangerId) VALUES (:sight, :animalId, :rangerId)";
+        String sql = "INSERT INTO sightings (sight, animalId, rangerId, timereported) VALUES (:sight, :animalId, :rangerId, now())";
         try(Connection con = DB.sql2o.open()) {
             this.id = (int) con.createQuery(sql, true)
                     .addParameter("sight", sight)

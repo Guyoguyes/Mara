@@ -5,6 +5,10 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
+import java.text.DateFormat;
+import java.util.Date;
+import java.sql.Timestamp;
+
 import static org.junit.Assert.*;
 
 public class SightingTest {
@@ -53,6 +57,7 @@ public class SightingTest {
         assertEquals(Sighting.find(sighting1.getId()), sighting1);
     }
 
+
 //    @Test
 //    public void sighting_savesRangerAndAnimalIdToDatabase(){
 //        Sighting sighting = setUpAssistant();
@@ -64,6 +69,15 @@ public class SightingTest {
 //        assertEquals(sighting.getRangerId(), ranger.getId());
 //        assertEquals(sighting.getAnimalId(), animal.getId());
 //    }
+
+    @Test
+    public void sghtings_recordsTimeOfReportInDatabase(){
+        Sighting sighting = setUpAssistant();
+        sighting.save();
+        Timestamp savedSighting = Sighting.find(sighting.getId()).getTimeReported();
+        Timestamp rightNow = new Timestamp(new Date().getTime());
+        assertEquals(DateFormat.getDateTimeInstance().format(rightNow), DateFormat.getDateTimeInstance().format(savedSighting));
+    }
 
     //helper method
     public Sighting setUpAssistant(){
