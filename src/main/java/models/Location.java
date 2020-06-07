@@ -5,7 +5,7 @@ import org.sql2o.Connection;
 
 import java.util.List;
 
-public class Location {
+public class Location implements DatabaseManagement {
 
     private String location;
     private int sightingId;
@@ -49,6 +49,7 @@ public class Location {
     }
 
     //save to database
+    @Override
     public void save(){
         String sql = "INSERT INTO locations (location, sightingId) VALUES (:location, :sightingId)";
         try(Connection con =DB.sql2o.open()) {
@@ -78,6 +79,16 @@ public class Location {
                     .executeAndFetchFirst(Location.class);
         }catch (IndexOutOfBoundsException exception){
             return null;
+        }
+    }
+
+    @Override
+    public void delete(){
+        try(Connection con = DB.sql2o.open()){
+            String sql = "DELETE FROM locations WHERE id=:id";
+            con.createQuery(sql)
+                    .addParameter("id", id)
+                    .executeUpdate();
         }
     }
 }

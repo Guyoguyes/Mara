@@ -6,7 +6,7 @@ import org.sql2o.Connection;
 import java.sql.Timestamp;
 import java.util.List;
 
-public class Sighting {
+public class Sighting  implements  DatabaseManagement{
     private String sight;
     private int animalId;
     private int rangerId;
@@ -63,6 +63,7 @@ public class Sighting {
     }
 
     //saved to DB
+    @Override
     public void save(){
         String sql = "INSERT INTO sightings (sight, animalId, rangerId, timereported) VALUES (:sight, :animalId, :rangerId, now())";
         try(Connection con = DB.sql2o.open()) {
@@ -93,6 +94,16 @@ public class Sighting {
             return sighting;
         }catch (IndexOutOfBoundsException exception){
             return null;
+        }
+    }
+
+    @Override
+    public void delete(){
+        try(Connection con = DB.sql2o.open()){
+            String sql = "DELETE FROM sightings WHERE id=:id";
+            con.createQuery(sql)
+                    .addParameter("id", id)
+                    .executeUpdate();
         }
     }
 }
