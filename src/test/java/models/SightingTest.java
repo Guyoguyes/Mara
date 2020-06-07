@@ -53,6 +53,18 @@ public class SightingTest {
         assertEquals(Sighting.find(sighting1.getId()), sighting1);
     }
 
+//    @Test
+//    public void sighting_savesRangerAndAnimalIdToDatabase(){
+//        Sighting sighting = setUpAssistant();
+//        sighting.save();
+//        Ranger ranger = new Ranger("John", 3310);
+//        ranger.save();
+//        Animal animal = new Animal("Lion", 1);
+//        animal.save();
+//        assertEquals(sighting.getRangerId(), ranger.getId());
+//        assertEquals(sighting.getAnimalId(), animal.getId());
+//    }
+
     //helper method
     public Sighting setUpAssistant(){
         return new Sighting("Zone A", 1, 1);
