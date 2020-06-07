@@ -44,6 +44,24 @@ public class LocationTest {
         assertEquals(location.getId(), savedLocation.getId());
     }
 
+    @Test
+    public void location_returnsSpecificLocationWitIdFromDatabase(){
+        Location location = setUpAssistant();
+        location.save();
+        Location location1 = anotherSetUpAssistant();
+        location1.save();
+        assertTrue(Location.find(location1.getId()).equals(location1));
+    }
+
+//    @Test
+//    public void location_savesSightsIdToDatabase(){
+//        Location location = setUpAssistant();
+//        location.save();
+//        Sighting sighting = new Sighting("Zone A", 1, 1);
+//        sighting.save();
+//        assertEquals(location.getSightingId(), sighting.getId());
+//    }
+
     @After
     public void tearDown() throws Exception {
     }

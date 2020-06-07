@@ -68,4 +68,16 @@ public class Location {
         }
 
     }
+
+    //find By Id
+    public static Location find(int id){
+        String sql = "SELECT * FROM locations WHERE id=:id";
+        try(Connection con = DB.sql2o.open()) {
+            return con.createQuery(sql)
+                    .addParameter("id", id)
+                    .executeAndFetchFirst(Location.class);
+        }catch (IndexOutOfBoundsException exception){
+            return null;
+        }
+    }
 }
