@@ -17,30 +17,53 @@ public class SightingTest {
     }
 
     @Test
-    public void sighting_InstantiatesCorrectly_true(){
+    public void sighting_InstantiatesCorrectly(){
         Sighting sighting = setUpAssistant();
-        assertEquals(true, sighting instanceof Sighting);
+        assertEquals(true, sighting instanceof  Sighting);
     }
 
     @Test
-    public void sigthting_InstantiatesWithAnimalId_int(){
-        Sighting sighting = setUpAssistant();
-        assertEquals(1, sighting.getAnimalId());
-    }
-
-    @Test
-    public void sighting_returnsTrueWhenLocationAreSame(){
+    public void sighting_returnsTrueIfSightsAreSame_true(){
         Sighting sighting = setUpAssistant();
         Sighting sighting1 = setUpAssistant();
         assertTrue(sighting.equals(sighting1));
     }
 
-    @After
-    public void tearDown() throws Exception {
+    @Test
+    public void sighting_savesObjectToDatabase(){
+        Sighting sighting = setUpAssistant();
+        sighting.save();
+        assertTrue(Sighting.all().get(0).equals(sighting));
+    }
+
+    @Test
+    public void sighting_SavesObjectWithId(){
+        Sighting sighting = setUpAssistant();
+        sighting.save();
+        Sighting savedSighting = Sighting.all().get(0);
+        assertEquals(sighting.getId(), savedSighting.getId());
+    }
+
+    @Test
+    public void sighting_returnsSpecificSightFromDatabase(){
+        Sighting sighting = setUpAssistant();
+        sighting.save();
+        Sighting sighting1 = anotherSetUpAssistant();
+        sighting1.save();
+        assertEquals(Sighting.find(sighting1.getId()), sighting1);
     }
 
     //helper method
     public Sighting setUpAssistant(){
         return new Sighting("Zone A", 1, 1);
+    }
+
+    public Sighting anotherSetUpAssistant(){
+        return new Sighting("Zone B", 2, 2);
+    }
+
+
+    @After
+    public void tearDown() throws Exception {
     }
 }

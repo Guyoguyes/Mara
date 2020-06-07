@@ -1,20 +1,24 @@
 package models;
 
-public class Sighting {
+import DB.DB;
+import org.sql2o.Connection;
 
-    private String location;
+import java.util.List;
+
+public class Sighting {
+    private String sight;
     private int animalId;
     private int rangerId;
     private int id;
 
-    public Sighting(String location, int animalId, int rangerId){
-        this.location = location;
+    public Sighting(String sight, int animalId, int rangerId){
+        this.sight = sight;
         this.animalId = animalId;
         this.rangerId = rangerId;
     }
 
-    public String getLocation() {
-        return location;
+    public String getSight() {
+        return sight;
     }
 
     public int getAnimalId() {
@@ -39,15 +43,49 @@ public class Sighting {
         if (animalId != sighting.animalId) return false;
         if (rangerId != sighting.rangerId) return false;
         if (id != sighting.id) return false;
-        return location != null ? location.equals(sighting.location) : sighting.location == null;
+        return sight != null ? sight.equals(sighting.sight) : sighting.sight == null;
     }
 
     @Override
     public int hashCode() {
-        int result = location != null ? location.hashCode() : 0;
+        int result = sight != null ? sight.hashCode() : 0;
         result = 31 * result + animalId;
         result = 31 * result + rangerId;
         result = 31 * result + id;
         return result;
+    }
+
+    //saved to DB
+    public void save(){
+        String sql = "INSERT INTO sightings (sight, animalId, rangerId) VALUES (:sight, :animalId, :rangerId)";
+        try(Connection con = DB.sql2o.open()) {
+            this.id = (int) con.createQuery(sql, true)
+                    .addParameter("sight", sight)
+                    .addParameter("animalId", animalId)
+                    .addParameter("rangerId", rangerId)
+                    .executeUpdate()
+                    .getKey();
+        }
+    }
+
+    //get all sights
+    public static List<Sighting> all(){
+        try(Connection con = DB.sql2o.open()) {
+            return con.createQuery("SELECT * FROM sightings")
+                    .executeAndFetch(Sighting.class);
+        }
+    }
+
+    //find By Id
+    public static Sighting find(int id){
+        try(Connection con = DB.sql2o.open()){
+            String sql = "SELECT * FROM sightings WHERE id=:id";
+            Sighting sighting = con.createQuery(sql)
+                    .addParameter("id", id)
+                    .executeAndFetchFirst(Sighting.class);
+            return sighting;
+        }catch (IndexOutOfBoundsException exception){
+            return null;
+        }
     }
 }
