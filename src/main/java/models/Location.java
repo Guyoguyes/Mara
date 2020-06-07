@@ -10,4 +10,5 @@ public class Location {
         this.location = location;
         this.sightingId = sightingId;
     }
+
 }
