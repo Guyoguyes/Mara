@@ -1,5 +1,10 @@
 package models;
 
+import DB.DB;
+import org.sql2o.Connection;
+
+import java.util.List;
+
 public class Location {
 
     private String location;
@@ -11,4 +16,56 @@ public class Location {
         this.sightingId = sightingId;
     }
 
+    public String getLocation() {
+        return location;
+    }
+
+    public int getSightingId() {
+        return sightingId;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Location location1 = (Location) o;
+
+        if (sightingId != location1.sightingId) return false;
+        if (id != location1.id) return false;
+        return location != null ? location.equals(location1.location) : location1.location == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = location != null ? location.hashCode() : 0;
+        result = 31 * result + sightingId;
+        result = 31 * result + id;
+        return result;
+    }
+
+    //save to database
+    public void save(){
+        String sql = "INSERT INTO locations (location, sightingId) VALUES (:location, :sightingId)";
+        try(Connection con =DB.sql2o.open()) {
+            this.id = (int) con.createQuery(sql, true)
+                    .addParameter("location", location)
+                    .addParameter("sightingId", sightingId)
+                    .executeUpdate()
+                    .getKey();
+        }
+    }
+
+    //get all locations
+    public static List<Location> all(){
+        try(Connection con = DB.sql2o.open()) {
+            return con.createQuery("SELECT * FROM locations")
+                    .executeAndFetch(Location.class);
+        }
+
+    }
 }
