@@ -53,5 +53,20 @@ public class App {
             model.put("ranger", ranger);
             return new ModelAndView(model, "animal-form");
         }, new HandlebarsTemplateEngine());
+
+        //post animal info
+        post("/animal", (req, res) ->{
+            Map<String, Object> model = new HashMap<>();
+            String name = req.queryParams("name");
+            int rangerId = Integer.parseInt(req.queryParams("rangerId"));
+            List<Ranger> rangers = Ranger.all();
+            model.put("rangers", rangers);
+            Animal animal = new Animal(name, rangerId);
+            animal.save();
+            model.put("animal", animal);
+            return new ModelAndView(model, "animalhbs");
+        }, new HandlebarsTemplateEngine());
+
+
     }
 }
