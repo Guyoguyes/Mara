@@ -27,6 +27,8 @@ public class EndangeredAnimals extends Animal implements DatabaseManagement{
         super(name, rangerId);
         this.name = name;
         this.rangerId = rangerId;
+        this.health = health;
+        this.age = age;
         type = DATABASE_TYPE;
     }
 

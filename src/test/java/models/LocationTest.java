@@ -68,10 +68,10 @@ public class LocationTest {
 
     //helper method
     public Location setUpAssistant(){
-        return new Location("Westpark", 1);
+        return new Location("Westpark");
     }
 
     public Location anotherSetUpAssistant(){
-        return new Location("North park", 1);
+        return new Location("North park");
     }
 }
