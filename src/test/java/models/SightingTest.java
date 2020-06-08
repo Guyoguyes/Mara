@@ -34,14 +34,42 @@ public class SightingTest {
     }
 
     @Test
-    public void sighting_savesObjectToDatabase(){
+    public void sigthing_IntiatiatesWithAnimal(){
+        Sighting sighting = setUpAssistant();
+        assertEquals(1, sighting.getAnimal_id());
+    }
+
+    @Test
+    public void sigthing_instiantesWithLocation(){
+        Sighting sighting = setUpAssistant();
+        assertEquals("Zone A", sighting.getLocation());
+    }
+
+    @Test
+    public void sighting_InstintiatesWithRangerId(){
+        Sighting sighting = setUpAssistant();
+        assertEquals(1, sighting.getRanger_id());
+    }
+
+    @Test
+    public void save_InsertOjectToDatabase(){
         Sighting sighting = setUpAssistant();
         sighting.save();
         assertTrue(Sighting.all().get(0).equals(sighting));
     }
 
     @Test
-    public void sighting_SavesObjectWithId(){
+    public void sightings_returnsAllObjectInTheDatabase(){
+        Sighting sighting = setUpAssistant();
+        sighting.save();
+        Sighting sighting1 = anotherSetUpAssistant();
+        sighting1.save();
+        assertEquals(true, Sighting.all().get(0).equals(sighting));
+        assertEquals(true, Sighting.all().get(1).equals(sighting1));
+    }
+
+    @Test
+    public void sightings_assignsIdOnSaving(){
         Sighting sighting = setUpAssistant();
         sighting.save();
         Sighting savedSighting = Sighting.all().get(0);
@@ -49,7 +77,7 @@ public class SightingTest {
     }
 
     @Test
-    public void sighting_returnsSpecificSightFromDatabase(){
+    public void sightings_returnsObjectWithSpecificId(){
         Sighting sighting = setUpAssistant();
         sighting.save();
         Sighting sighting1 = anotherSetUpAssistant();
@@ -57,35 +85,23 @@ public class SightingTest {
         assertEquals(Sighting.find(sighting1.getId()), sighting1);
     }
 
-
-//    @Test
-//    public void sighting_savesRangerAndAnimalIdToDatabase(){
-//        Sighting sighting = setUpAssistant();
-//        sighting.save();
-//        Ranger ranger = new Ranger("John", 3310);
-//        ranger.save();
-//        Animal animal = new Animal("Lion", 1);
-//        animal.save();
-//        assertEquals(sighting.getRangerId(), ranger.getId());
-//        assertEquals(sighting.getAnimalId(), animal.getId());
-//    }
-
     @Test
-    public void sghtings_recordsTimeOfReportInDatabase(){
+    public void sigthing_savesObjectWithTimeRecord(){
         Sighting sighting = setUpAssistant();
         sighting.save();
-        Timestamp savedSighting = Sighting.find(sighting.getId()).getTimeReported();
-        Timestamp rightNow = new Timestamp(new Date().getTime());
-        assertEquals(DateFormat.getDateTimeInstance().format(rightNow), DateFormat.getDateTimeInstance().format(savedSighting));
+        Timestamp savedTime = Sighting.find(sighting.getId()).getTimeReported();
+        Timestamp rigthNow = new Timestamp(new Date().getTime());
+        assertEquals(DateFormat.getDateTimeInstance().format(rigthNow), DateFormat.getDateTimeInstance().format(savedTime));
     }
+
 
     //helper method
     public Sighting setUpAssistant(){
-        return new Sighting("Zone A", 1, 1);
+        return new Sighting(1,"Zone A",  1);
     }
 
     public Sighting anotherSetUpAssistant(){
-        return new Sighting("Zone B", 2, 2);
+        return new Sighting(1,"Zone B",  2);
     }
 
 

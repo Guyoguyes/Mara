@@ -6,29 +6,29 @@ import org.sql2o.Connection;
 import java.sql.Timestamp;
 import java.util.List;
 
-public class Sighting  implements  DatabaseManagement{
-    private String sight;
+public class Sighting implements DatabaseManagement{
+
     private int animalId;
+    private String location;
     private int rangerId;
     private int id;
-
     private Timestamp timeReported;
 
-    public Sighting(String sight, int animalId, int rangerId){
-        this.sight = sight;
+    public Sighting(int animalId, String location, int rangerId){
         this.animalId = animalId;
+        this.location = location;
         this.rangerId = rangerId;
     }
 
-    public String getSight() {
-        return sight;
-    }
-
-    public int getAnimalId() {
+    public int getAnimal_id() {
         return animalId;
     }
 
-    public int getRangerId() {
+    public String getLocation() {
+        return location;
+    }
+
+    public int getRanger_id() {
         return rangerId;
     }
 
@@ -50,60 +50,67 @@ public class Sighting  implements  DatabaseManagement{
         if (animalId != sighting.animalId) return false;
         if (rangerId != sighting.rangerId) return false;
         if (id != sighting.id) return false;
-        return sight != null ? sight.equals(sighting.sight) : sighting.sight == null;
+        if (location != null ? !location.equals(sighting.location) : sighting.location != null) return false;
+        return timeReported != null ? timeReported.equals(sighting.timeReported) : sighting.timeReported == null;
     }
 
     @Override
     public int hashCode() {
-        int result = sight != null ? sight.hashCode() : 0;
-        result = 31 * result + animalId;
+        int result = animalId;
+        result = 31 * result + (location != null ? location.hashCode() : 0);
         result = 31 * result + rangerId;
         result = 31 * result + id;
+        result = 31 * result + (timeReported != null ? timeReported.hashCode() : 0);
         return result;
     }
 
-    //saved to DB
     @Override
     public void save(){
-        String sql = "INSERT INTO sightings (sight, animalId, rangerId, timereported) VALUES (:sight, :animalId, :rangerId, now())";
-        try(Connection con = DB.sql2o.open()) {
+        try(Connection con = DB.sql2o.open()){
+            String sql = "INSERT INTO sightings (animalId, location, rangerId, timeReported) VALUES (:animalId, :location, :rangerId, :timeReported)";
             this.id = (int) con.createQuery(sql, true)
-                    .addParameter("sight", sight)
                     .addParameter("animalId", animalId)
+                    .addParameter("location", location)
                     .addParameter("rangerId", rangerId)
+                    .addParameter("timeReported", timeReported)
                     .executeUpdate()
                     .getKey();
         }
     }
 
-    //get all sights
     public static List<Sighting> all(){
-        try(Connection con = DB.sql2o.open()) {
+        try(Connection con = DB.sql2o.open()){
             return con.createQuery("SELECT * FROM sightings")
                     .executeAndFetch(Sighting.class);
         }
     }
 
-    //find By Id
     public static Sighting find(int id){
         try(Connection con = DB.sql2o.open()){
-            String sql = "SELECT * FROM sightings WHERE id=:id";
-            Sighting sighting = con.createQuery(sql)
+            Sighting sighting = con.createQuery("SELECT * FROM sightings WHERE id=:id")
                     .addParameter("id", id)
                     .executeAndFetchFirst(Sighting.class);
             return sighting;
-        }catch (IndexOutOfBoundsException exception){
-            return null;
         }
     }
 
     @Override
     public void delete(){
-        try(Connection con = DB.sql2o.open()){
-            String sql = "DELETE FROM sightings WHERE id=:id";
+        String sql = "DELETE FROM sightings WHERE id=:id";
+        try(Connection con = DB.sql2o.open()) {
             con.createQuery(sql)
-                    .addParameter("id", id)
                     .executeUpdate();
         }
     }
+
+    public Animal getAll(){
+        String sql = "SELECT * FROM animals WHERE id=:id";
+        try(Connection con = DB.sql2o.open()){
+            Animal animal = con.createQuery(sql)
+                    .addParameter("id", this.animalId)
+                    .executeAndFetchFirst(Animal.class);
+            return animal;
+        }
+    }
+
 }
