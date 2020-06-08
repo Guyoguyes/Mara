@@ -1,9 +1,14 @@
 plugins {
     id 'java'
+    id 'application'
 }
 
 group 'mara'
 version '1.0-SNAPSHOT'
+
+mainClassName = 'App'
+
+sourceCompatibility = 1.8
 
 repositories {
     mavenCentral()
