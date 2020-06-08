@@ -35,6 +35,7 @@ public class App {
             String name = req.queryParams("name");
             int budgeNo = Integer.parseInt(req.queryParams("budgeno"));
             Ranger ranger = new Ranger(name, budgeNo);
+            ranger.save();
             model.put("ranger", ranger);
             return new ModelAndView(model, "ranger.hbs");
         }, new HandlebarsTemplateEngine());
@@ -44,6 +45,13 @@ public class App {
             List<Ranger> rangers = Ranger.all();
             model.put("rangers", rangers);
             return new ModelAndView(model, "ranger.hbs");
+        }, new HandlebarsTemplateEngine());
+
+        get("/animal/form", (req, res) ->{
+            Map<String, Object> model = new HashMap<>();
+            List<Ranger> ranger = Ranger.all();
+            model.put("ranger", ranger);
+            return new ModelAndView(model, "animal-form");
         }, new HandlebarsTemplateEngine());
     }
 }
