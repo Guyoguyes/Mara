@@ -27,33 +27,41 @@ public class App {
         }, new HandlebarsTemplateEngine());
 
         //get form
-        get("/ranger/form", (req, res) ->{
+        get("/rangers", (req, res) ->{
             Map<String, Object> model = new HashMap<>();
-           return new ModelAndView(model, "ranger-form.hbs");
+           return new ModelAndView(model, "rangers.hbs");
         }, new HandlebarsTemplateEngine());
 
-        post("/ranger", (req, res) ->{
+        post("/rangers", (req, res) ->{
             Map<String, Object> model = new HashMap<>();
             String name = req.queryParams("name");
             int budgeNo = Integer.parseInt(req.queryParams("budgeno"));
             Ranger ranger = new Ranger(name, budgeNo);
             ranger.save();
-            model.put("ranger", ranger);
-            return new ModelAndView(model, "ranger.hbs");
+            List<Ranger> rangers = Ranger.all();
+            model.put("rangers", rangers);
+            return new ModelAndView(model, "rangers.hbs");
         }, new HandlebarsTemplateEngine());
 
-        get("/ranger", (req, res) ->{
+        get("/rangers", (req, res) ->{
             Map<String, Object> model = new HashMap<>();
             List<Ranger> rangers = Ranger.all();
             model.put("rangers", rangers);
-            return new ModelAndView(model, "ranger.hbs");
+            return new ModelAndView(model, "rangers.hbs");
         }, new HandlebarsTemplateEngine());
 
-        get("/animal/form", (req, res) ->{
+        get("/animalType", (req, res) ->{
+            Map<String, Object> model = new HashMap<>();
+            return new ModelAndView(model, "animal-type.hbs");
+        }, new HandlebarsTemplateEngine());
+
+        get("/animal", (req, res) ->{
             Map<String, Object> model = new HashMap<>();
             List<Ranger> ranger = Ranger.all();
+            List<Location> locations = Location.all();
             model.put("ranger", ranger);
-            return new ModelAndView(model, "animal-form");
+            model.put("locations", locations);
+            return new ModelAndView(model, "animal.hbs");
         }, new HandlebarsTemplateEngine());
 
         //post animal info
@@ -62,7 +70,7 @@ public class App {
             String name = req.queryParams("name");
             int rangerId = Integer.parseInt(req.queryParams("rangerId"));
             List<Ranger> rangers = Ranger.all();
-            model.put("rangers", rangers);
+            model.put("rangers", rangers.get(rangerId));
             Animal animal = new Animal(name, rangerId);
             animal.save();
 //            model.put("animal", animal);

@@ -44,3 +44,13 @@
 .footer i{
     margin-top: 5px;
 }
+
+/* ranger */
+.ranger-form-header{
+    padding-top: 50px;
+    text-align: center;
+}
+.animal-type{
+    padding-top: 200px;
+    padding-left: 150px;
+}
