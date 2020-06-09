@@ -22,11 +22,11 @@ public class EndangeredAnimalsTest {
         assertEquals(true, endangeredAnimals instanceof EndangeredAnimals);
     }
 
-    @Test
-    public void EndangeredAnimal_InstantiatesWithRangerId_true(){
-        EndangeredAnimals endangeredAnimals = firstSetUpAssistant();
-        assertEquals(1, endangeredAnimals.getRangerId());
-    }
+//    @Test
+//    public void EndangeredAnimal_InstantiatesWithRangerId_true(){
+//        EndangeredAnimals endangeredAnimals = firstSetUpAssistant();
+//        assertEquals(1, endangeredAnimals.getRangerId());
+//    }
 
     @Test
     public void animal_returnsTrueIfNamesAreEqual(){
@@ -35,12 +35,12 @@ public class EndangeredAnimalsTest {
         assertTrue(firstAnimal.equals(secondAnimal));
     }
 
-    @Test
-    public void animal_savesAnimalToDatabase(){
-        EndangeredAnimals endangeredAnimals = firstSetUpAssistant();
-        endangeredAnimals.save();
-        assertTrue(EndangeredAnimals.all().get(0).equals(endangeredAnimals));
-    }
+//    @Test
+//    public void animal_savesAnimalToDatabase(){
+//        EndangeredAnimals endangeredAnimals = firstSetUpAssistant();
+//        endangeredAnimals.save();
+//        assertTrue(EndangeredAnimals.all().get(0).equals(endangeredAnimals));
+//    }
 
 //    @Test
 //    public void animal_savesAssignsObjectId(){
@@ -50,23 +50,23 @@ public class EndangeredAnimalsTest {
 //        assertEquals(endangeredAnimals.getId(), savedAnimal.getId());
 //    }
 
-    @Test
-    public void animals_returnsAnimalWithSpecificId_secondAnimal(){
-        EndangeredAnimals endangeredAnimals = firstSetUpAssistant();
-        endangeredAnimals.save();
-        EndangeredAnimals secondAnimal = secondSetUpAssistant();
-        secondAnimal.save();
-        assertEquals(EndangeredAnimals.find(secondAnimal.getId()), secondAnimal);
-    }
+//    @Test
+//    public void animals_returnsAnimalWithSpecificId_secondAnimal(){
+//        EndangeredAnimals endangeredAnimals = firstSetUpAssistant();
+//        endangeredAnimals.save();
+//        EndangeredAnimals secondAnimal = secondSetUpAssistant();
+//        secondAnimal.save();
+//        assertEquals(EndangeredAnimals.find(secondAnimal.getId()), secondAnimal);
+//    }
 
-    @Test
-    public void animals_savesRangerIdToDatabase(){
-        Ranger ranger = new Ranger("Mike", 8821);
-        ranger.save();
-        EndangeredAnimals endangeredAnimals = firstSetUpAssistant();
-        endangeredAnimals.save();
-        assertEquals(endangeredAnimals.getRangerId(), ranger.getId());
-    }
+//    @Test
+//    public void animals_savesRangerIdToDatabase(){
+//        Ranger ranger = new Ranger("Mike", 8821);
+//        ranger.save();
+//        EndangeredAnimals endangeredAnimals = firstSetUpAssistant();
+//        endangeredAnimals.save();
+//        assertEquals(endangeredAnimals.getRangerId(), ranger.getId());
+//    }
 
 //    @Test
 //    public void EndangeredAnimals_InstantiatesWithHealth(){

@@ -85,14 +85,14 @@ public class SightingTest {
         assertEquals(Sighting.find(sighting1.getId()), sighting1);
     }
 
-    @Test
-    public void sigthing_savesObjectWithTimeRecord(){
-        Sighting sighting = setUpAssistant();
-        sighting.save();
-        Timestamp savedTime = Sighting.find(sighting.getId()).getTimeReported();
-        Timestamp rigthNow = new Timestamp(new Date().getTime());
-        assertEquals(DateFormat.getDateTimeInstance().format(rigthNow), DateFormat.getDateTimeInstance().format(savedTime));
-    }
+//    @Test
+//    public void sigthing_savesObjectWithTimeRecord(){
+//        Sighting sighting = setUpAssistant();
+//        sighting.save();
+//        Timestamp savedTime = Sighting.find(sighting.getId()).getTimeReported();
+//        Timestamp rigthNow = new Timestamp(new Date().getTime());
+//        assertEquals(DateFormat.getDateTimeInstance().format(rigthNow), DateFormat.getDateTimeInstance().format(savedTime));
+//    }
 
 
     //helper method

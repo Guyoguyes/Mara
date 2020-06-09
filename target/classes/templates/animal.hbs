@@ -1,0 +1,23 @@
+{{#partial "content"}}
+    <div class="container">
+        <form action="/animals"  method="POST">
+            <div class="input-field ">
+                <input placeholder="Placeholder" id="name" name="name" type="text" class="validate">
+                <label for="name">Animal Name</label>
+            </div>
+            <div class="input-field col s12">
+                <select>
+                    <option value="" disabled selected>Choose your option</option>
+                    <option value="1">Option 1</option>
+                    <option value="2">Option 2</option>
+                    <option value="3">Option 3</option>
+                </select>
+                <label>Materialize Select</label>
+            </div>
+            <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+                <i class="material-icons right">group_add</i>
+            </button>
+        </form>
+    </div>
+{{/partial}}
+{{> layout.hbs}}

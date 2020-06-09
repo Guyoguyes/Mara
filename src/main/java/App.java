@@ -13,12 +13,20 @@ import spark.ModelAndView;
 import static spark.Spark.*;
 
 public class App {
+
+    static int getHerokuAssignedPort() {
+        ProcessBuilder processBuilder = new ProcessBuilder();
+        if (processBuilder.environment().get("PORT") != null) {
+            return Integer.parseInt(processBuilder.environment().get("PORT"));
+        }
+        return 4567; //return default port if heroku-port isn't set (i.e. on localhost)
+    }
     public static void main(String[] args) {
         staticFileLocation("/public");
 
         //Database
-        String connection = "jdbc:postgresql://localhost:5432/wildlife-tracker";
-        Sql2o sql2o = new Sql2o(connection , "guyo", "@#scorpion");
+        String connection = "jdbc:postgresql://naiyiqzykiouxn:3f3f5ade55c4d11159851cc3d78e07ac8f07ea10983a00e7eb09586b9b5c40c2@ec2-35-174-127-63.compute-1.amazonaws.com:5432/d1a2m2t3ei1jmm";
+        Sql2o sql2o = new Sql2o(connection , "naiyiqzykiouxn", "3f3f5ade55c4d11159851cc3d78e07ac8f07ea10983a00e7eb09586b9b5c40c2");
 
         //get home page
         get("/", (req, res) ->{

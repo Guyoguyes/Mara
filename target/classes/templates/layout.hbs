@@ -1,0 +1,46 @@
+{{#block "header"}}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{{#partial "title"}}MARA{{/partial}}</title>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Metal+Mania&display=swap" rel="stylesheet">
+<!--    <link href="https://fonts.googleapis.com/css2?family=Piedra&display=swap" rel="stylesheet">-->
+</head>
+<body>
+<nav class="green darken-4">
+    <div class="nav-wrapper">
+        <a href="#" class="brand-logo"><img src="/images/logo.png" alt=""></a>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li><a href="/rangers">Rangers</a></li>
+            <li><a href="/sightings">Sighting</a></li>
+            <li><a href="/animals">Animals</a></li>
+        </ul>
+    </div>
+</nav>
+{{/block}}
+
+
+
+
+    <div>
+{{#block "content"}}{{/block}}
+    </div>
+
+
+{{#block "footer"}}
+<!--    <div class="footer">-->
+<!--        <p>Made with <i class="material-icons">favorite</i> by <a href="https://github.com/Guyoguyes" style="text-decoration: none">Guyo</a></p>-->
+<!--    </div>-->
+
+    </body>
+    </html>
+{{/block}}
