@@ -5,7 +5,7 @@ import org.sql2o.Connection;
 
 import java.util.List;
 
-public class Location implements DatabaseManagement {
+public class    Location implements DatabaseManagement {
 
     private String location;
 //    private int sightingId;

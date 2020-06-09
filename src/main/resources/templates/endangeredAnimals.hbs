@@ -1,0 +1,93 @@
+{{#partial "content"}}
+    <div class="container">
+        <div class="endangeredAnimal">
+            <div class="row">
+                <div class="col s6">
+                    <h5  class="text-center">Endangered Animals</h5>
+                    <form action="/endangeredAnimals" method="POST">
+                        <div class="input-field ">
+                            <input  id="name" name="name" type="text" class="validate">
+                            <label for="name">Animal Name</label>
+                        </div>
+                        <div class="form-group">
+                            {{#if ranger}}
+                                <label for="rangerId">Ranger</label>
+
+                                <select class="form-control form-control-sm" id="rangerId" name="rangerId">
+
+                                    {{#each ranger}}
+                                        <option value=""></option>
+                                        <option value="{{id}}">{{name}}</option>
+                                    {{/each}}
+
+
+
+                                </select>
+
+
+                            {{/if}}
+
+                        </div>
+                        <div class="form-group">
+                            <label for="health">Health</label>
+                            <select class="form-control form-control-sm" id="health" name="health">
+                                <option value=""></option>
+                                <option value="{{EndangeredAnimals.healthy}}">healthy</option>
+                                <option value="{{EndangeredAnimals.okay}}">Okay</option>
+                                <option value="{{EndangeredAnimals.ill}}">ill</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="age">age</label>
+                            <select class="form-control form-control-sm" name="age" id="age">
+                                <option value=""></option>
+                                <option value="{{EndangeredAnimals.newBorn}}">New Born</option>
+                                <option value="{{EndangeredAnimals.young}}">Young</option>
+                                <option value="{{EndangeredAnimals.adult}}">Adult</option>
+                            </select>
+                        </div>
+                        <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+
+                        </button>
+                    </form>
+                    <a href="/location"><button class="btn waves-effect waves-light" type="submit" name="action">Next</button></a>
+                </div>
+                <div class="col s6">
+                    <div class="endangeredInfo">
+                        <h5>Endangered Animals List</h5>
+                        {{#if endangeredAnimals}}
+
+                                <table>
+                                    <thead>
+
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Animal name</th>
+                                        <th>Ranger</th>
+                                        <th>Health</th>
+                                        <th>Age</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {{#each endangeredAnimals}}
+                                    <tr>
+                                        <td>{{name}}</td>
+                                        <td>{{rangerId}}</td>
+                                        <td>{{health}}</td>
+                                        <td>{{age}}</td>
+                                    </tr>
+                                    {{/each}}
+                                    </tbody>
+                                </table>
+
+                        {{else}}
+                            <p>No Animals</p>
+                        {{/if}}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{{/partial}}
+{{> layout.hbs}}

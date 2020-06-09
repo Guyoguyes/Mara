@@ -11,9 +11,9 @@ public class EndangeredAnimals extends Animal implements DatabaseManagement{
     private String health;
     private String age;
 
-    public static final String healthy = "healthy";
-    public static final String ill = "ill";
-    public static final String okay = "okay";
+    public static final String healthy = "Healthy";
+    public static final String ill = "Ill";
+    public static final String okay = "Okay";
 
 
     public static final String newBorn = "newBorn";

@@ -1,0 +1,30 @@
+{{#partial "content"}}
+    <div class="container">
+        <h5 class="text-center">
+            Animal Sightings
+        </h5>
+        <table>
+            <thead>
+            <tr>
+                <th>Animal</th>
+                <th>Type</th>
+                <th>Health</th>
+                <th>Age</th>
+                <th>Ranger</th>
+                <th>location</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>{{animals.name}}</td>
+                <td>{{endangeredAnimals.type}}</td>
+                <td>{{endangeredAnimals.health}}</td>
+                <td>{{endangeredAnimals.age}}</td>
+                <td>{{rangers.name}}</td>
+                <td>{{locatins.name}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+{{/partial}}
+{{> layout.hbs}}
