@@ -30,6 +30,8 @@ public class EndangeredAnimals extends Animal implements DatabaseManagement{
         this.health = health;
         this.age = age;
         type = DATABASE_TYPE;
+
+
     }
 
     public String getHealth() {
@@ -39,6 +41,13 @@ public class EndangeredAnimals extends Animal implements DatabaseManagement{
     public String getAge() {
         return age;
     }
+
+    public void validImputs(){
+        if(name.equals("") || health.equals("") || age.equals("")){
+            throw new IllegalArgumentException("Fill in all the fields");
+        }
+    }
+
 
     @Override
     public boolean equals(Object o) {
